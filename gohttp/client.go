@@ -2,7 +2,9 @@ package gohttp
 
 import "net/http"
 
-type httpClient struct{}
+type httpClient struct {
+	Headers http.Header
+}
 
 // New ...
 func New() HTTPClient {
