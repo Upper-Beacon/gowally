@@ -2,6 +2,11 @@ package gohttp
 
 type httpClient struct{}
 
+// New ...
+func New() HTTPClient {
+	return &httpClient{}
+}
+
 // HTTPClient ...
 type HTTPClient interface {
 	Get()
