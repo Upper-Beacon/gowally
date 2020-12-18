@@ -2,6 +2,7 @@ package gowally
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/Upper-Beacon/gowally/gohttp"
 )
@@ -9,7 +10,11 @@ import (
 func basicExample() {
 	client := gohttp.New()
 
-	response, err := client.Get("https://api.github.com", nil)
+	headers := make(http.Header)
+
+	headers.Set("Authorization", "Bearer iuashdiushiudhasiudhaisd")
+
+	response, err := client.Get("https://api.github.com", headers)
 
 	if err != nil {
 		panic(err)
