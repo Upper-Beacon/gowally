@@ -2,23 +2,41 @@ package gowally
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/Upper-Beacon/gowally/gohttp"
 )
 
-func basicExample() {
+var (
+	githubHTTPClient = getGithubClient()
+)
+
+func getGithubClient() gohttp.HTTPClient {
 	client := gohttp.New()
 
-	headers := make(http.Header)
+	commomHeaders := make(http.Header)
 
-	headers.Set("Authorization", "Bearer iuashdiushiudhasiudhaisd")
+	commomHeaders.Set("Authorization", "Bearer ABC-123")
 
-	response, err := client.Get("https://api.github.com", headers)
+	client.SetHeaders(commomHeaders)
+
+	return client
+}
+
+func main() {
+	getUrls()
+}
+
+func getUrls() {
+	response, err := githubHTTPClient.Get("https://api.github.com", nil)
 
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Sprintln(response.StatusCode)
+	fmt.Println(response.StatusCode)
+
+	bytes, _ := ioutil.ReadAll(response.Body)
+	fmt.Println(string(bytes))
 }
